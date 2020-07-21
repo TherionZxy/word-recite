@@ -1,0 +1,29 @@
+server:
+  servlet:
+    context-path: /recite
+  port: 8080
+
+spring:
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:recite
+    username: sa
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      min-idle: 3
+      initial-size: 5
+      max-active: 10
+      validation-query: select 1
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+      settings:
+        web-allow-others: true
+  jpa:
+    show-sql: true
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+
