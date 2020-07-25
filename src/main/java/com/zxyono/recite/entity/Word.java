@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 public class Word {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "word_id")
     private Long wordId;
 

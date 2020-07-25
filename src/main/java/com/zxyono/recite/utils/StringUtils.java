@@ -12,6 +12,12 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
     /** 下划线 */
     private static final char SEPARATOR = '_';
 
+    /** 字母 */
+    private static final String CHARACTER = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+
+    /** 数字 */
+    private static final String NUMBER = "0123456789";
+
     /**
      * 获取参数不为空值
      *
@@ -418,5 +424,42 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
             }
         }
         return sb.toString();
+    }
+
+    public static boolean checkString(String s, Integer limit, String flag) {
+        if (limit != null && s.length() != limit) {
+            return false;
+        } else {
+            if (flag.equals("char")) {
+                for(char c : s.toCharArray()) {
+                    if (!CHARACTER.contains(Character.toString(c))) {
+                        return false;
+                    }
+                }
+            }
+            if (flag.equals("number")) {
+                for(char c : s.toCharArray()) {
+                    if (!NUMBER.contains(Character.toString(c))) {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static String delRepeat(String s) {
+        Map<String, Integer> countMap = new HashMap<>();
+
+        for (char c: s.toCharArray()) {
+            if (countMap.get(Character.toString(c)) == null) {
+                countMap.put(Character.toString(c), 1);
+            } else {
+                countMap.put(Character.toString(c), countMap.get(Character.toString(c)) + 1);
+            }
+        }
+
+        return String.join("", countMap.keySet());
     }
 }
