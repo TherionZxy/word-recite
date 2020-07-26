@@ -11,6 +11,7 @@ import com.zxyono.recite.repository.ScoresRepository;
 import com.zxyono.recite.service.ScoresService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +30,8 @@ public class ScoresServiceImpl implements ScoresService {
 
     @Override
     public ScoresWrapper findAll(int page, int size) {
-        Page<Scores> all = scoresRepository.findAll(PageRequest.of(page, size));
+        Sort sort = Sort.by(Sort.Direction.DESC, "createTime");
+        Page<Scores> all = scoresRepository.findAll(PageRequest.of(page, size, sort));
         ScoresWrapper scoresWrapper = new ScoresWrapper();
         scoresWrapper.setScoresList(all.getContent());
         scoresWrapper.setTotal(all.getTotalPages());
@@ -38,7 +40,7 @@ public class ScoresServiceImpl implements ScoresService {
     }
 
     @Override
-    public boolean addScores(Submit submit) {
+    public Scores addScores(Submit submit) {
         // 拿到submit之后，组装Scores，进行保存
         Scores scores = new Scores();
         List<Answer> answersList = new ArrayList<>();
@@ -55,12 +57,11 @@ public class ScoresServiceImpl implements ScoresService {
             word.setWordId(wordIds[i]);
             answer.setWord(word);
             answer.setEnAnswer(answers[i]);
-
             answersList.add(answer);
         }
 
         scores.setAnswers(answersList);
         Scores result = scoresRepository.save(scores);
-        return true;
+        return result;
     }
 }

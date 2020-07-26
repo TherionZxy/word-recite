@@ -9,7 +9,7 @@ import java.util.List;
 public interface ScoresService {
     public Scores findScoresById(Long scoresId);
 
-    public boolean addScores(Submit submit);
+    public Scores addScores(Submit submit);
 
     public ScoresWrapper findAll(int page, int size);
 }

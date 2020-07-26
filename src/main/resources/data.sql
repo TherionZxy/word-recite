@@ -1,7 +1,3 @@
-insert into xy_word(en_content, zh_content)  values('happy','高兴');
-insert into xy_word(en_content, zh_content)  values('sad','伤心');
-insert into xy_word(en_content, zh_content)  values('hungry','肚子饿');
-
 insert into xy_word(en_content, zh_content)  values('magical realism','魔幻现实主义');
 insert into xy_word(en_content, zh_content)  values('maglev train','磁浮列车');
 insert into xy_word(en_content, zh_content)  values('majority ownership','过半数所有权');

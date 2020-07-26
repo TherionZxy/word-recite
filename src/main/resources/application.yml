@@ -5,25 +5,21 @@ server:
 
 spring:
   datasource:
-    platform: h2
-    url: jdbc:h2:mem:recite
-    username: sa
-    password:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/db_recite
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 12345678
     type: com.alibaba.druid.pool.DruidDataSource
+    data: classpath:data.sql
     druid:
       min-idle: 3
       initial-size: 5
       max-active: 10
       validation-query: select 1
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
-      settings:
-        web-allow-others: true
   jpa:
     show-sql: true
     generate-ddl: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 

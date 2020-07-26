@@ -5,7 +5,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "xy_word")
+@Table(name = "xy_word",uniqueConstraints = {@UniqueConstraint(columnNames = "en_content")})
 @Data
 public class Word {
     @Id

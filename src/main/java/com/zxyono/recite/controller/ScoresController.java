@@ -32,7 +32,7 @@ public class ScoresController {
      */
     @RequestMapping(value = "submit", method = RequestMethod.POST)
     public ResultMap submitScores(@RequestBody Submit submit) {
-        return ResultMap.success(scoresService.addScores(submit));
+        return ResultMap.success(scoresService.addScores(submit).getScoresId());
     }
 
     /**

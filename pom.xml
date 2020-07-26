@@ -11,6 +11,8 @@
 	<groupId>com.zxyono</groupId>
 	<artifactId>recite</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
 	<name>recite</name>
 	<description>A project for my friend.</description>
 
@@ -23,29 +25,22 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<!-- JPA -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<!-- Redis -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-redis</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-redis</artifactId>-->
+<!--		</dependency>-->
 		<!-- Devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
-		<!-- H2Base -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
 		</dependency>
 		<!-- Mysql driver -->
 		<dependency>
@@ -90,6 +85,7 @@
 	</dependencies>
 
 	<build>
+		<finalName>recite</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
