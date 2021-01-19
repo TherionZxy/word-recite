@@ -19,4 +19,7 @@ public class Word {
     @Column(name = "zh_content", length = 1024)
     private String zhContent;
 
+    @Column(name = "type")
+    private Integer type;
+
 }

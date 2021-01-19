@@ -1,5 +1,6 @@
 package com.zxyono.recite.exception.handler;
 
+import com.zxyono.recite.exception.BaiduApiException;
 import com.zxyono.recite.exception.SubmitException;
 import com.zxyono.recite.exception.WordException;
 import com.zxyono.recite.utils.ResultMap;
@@ -15,6 +16,11 @@ public class MyExceptionHandler {
 
     @ExceptionHandler(value = SubmitException.class)
     public ResultMap handlerSubmitException(SubmitException e) {
+        return ResultMap.error(e.getExceptionEnum().getCode(), e.getExceptionEnum().getMessage());
+    }
+
+    @ExceptionHandler(value = BaiduApiException.class)
+    public ResultMap handlerBaiduApiException(BaiduApiException e) {
         return ResultMap.error(e.getExceptionEnum().getCode(), e.getExceptionEnum().getMessage());
     }
 }

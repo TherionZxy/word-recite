@@ -5,8 +5,9 @@ import com.zxyono.recite.entity.wrapper.WordWrapper;
 import com.zxyono.recite.service.WordService;
 import com.zxyono.recite.utils.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "word")
@@ -18,19 +19,37 @@ public class WordController {
      * 根据首字母 / 需要的单词个数获取单词
      */
     @RequestMapping(value = "/search/letters/{letter}")
-    public ResultMap searchByFirstLetter(@PathVariable("letter") String letter, @Param("num") Integer num) {
-        if (num == null) {
-            num = 20;
+    public ResultMap searchByFirstLetter(@PathVariable("letter") String letter,
+                                         @RequestParam(name = "num") String num,
+                                         @RequestParam(name = "type", defaultValue = "1") Integer type) {
+        int paramNum = 20;
+        if (num != null) {
+            if (num.equals("all")) {
+                paramNum = -1;
+            } else {
+                paramNum = Integer.parseInt(num);
+            }
         }
-        return ResultMap.success(wordService.findWordsByParams(letter, num));
+
+        return ResultMap.success(wordService.findWordsByParamsRegexLimit(type, letter, paramNum));
     }
 
     /**
      * 根据输入的前n个字母查询单词
      */
     @RequestMapping(value = "/search/{letters}")
-    public ResultMap searchByLetters(@PathVariable("letters") String letters, @Param("num") Integer num) {
-        return ResultMap.success(wordService.findWordsByLetters(letters, num));
+    public ResultMap searchByLetters(@PathVariable("letters") String letters,
+                                     @RequestParam(name = "num") String num,
+                                     @RequestParam(name = "type", defaultValue = "1") Integer type) {
+        int paramNum = 20;
+        if (num != null) {
+            if (num.equals("all")) {
+                paramNum = -1;
+            } else {
+                paramNum = Integer.parseInt(num);
+            }
+        }
+        return ResultMap.success(wordService.findWordsByLetters(type, letters, paramNum));
     }
 
     /**
@@ -64,6 +83,24 @@ public class WordController {
     @RequestMapping(value = "/add")
     public ResultMap addNewWords(@RequestBody WordVo wordVo) {
         return ResultMap.success(wordService.addWords(wordVo));
+    }
+
+    /**
+     * 获取热门单词
+     * @param num
+     * @return
+     */
+    @RequestMapping(value = "/hot/{num}")
+    public ResultMap getHotWords(@PathVariable("num") int num) {
+        return ResultMap.success(wordService.findHotWords(num));
+    }
+
+    /**
+     * 百度语音合成API
+     */
+    @RequestMapping(value = "/audio/{per}/{word}")
+    public String getAudio(@PathVariable("per") int per, @PathVariable("word") String word, HttpServletResponse response) {
+        return wordService.getAudio(word, per);
     }
 
 }
